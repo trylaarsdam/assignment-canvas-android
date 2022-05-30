@@ -5,22 +5,31 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.Message
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import com.trylaarsdam.assignmentcanvas.data.TabItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AppBar(scope: CoroutineScope, drawerState: DrawerState) {
+fun AppBar(scope: CoroutineScope, drawerState: DrawerState, selectedTab: MutableState<TabItem>) {
     BottomAppBar(
         icons = {
-            IconButton(onClick = { /* doSomething() */ }) {
-                Icon(Icons.Outlined.Message, contentDescription = "Announcements")
-            }
-            IconButton(onClick = { /* doSomething() */ }) {
-                Icon(
-                    Icons.Filled.EditNote,
-                    contentDescription = "Assignments",
-                )
+            when(selectedTab.value.name) {
+                "Profile" -> {
+
+                }
+                "Feed" -> {
+                    IconButton(onClick = { /* doSomething() */ }) {
+                        Icon(Icons.Outlined.Message, contentDescription = "Announcements")
+                    }
+                    IconButton(onClick = { /* doSomething() */ }) {
+                        Icon(
+                            Icons.Filled.EditNote,
+                            contentDescription = "Assignments",
+                        )
+                    }
+                }
             }
         },
         floatingActionButton = {
