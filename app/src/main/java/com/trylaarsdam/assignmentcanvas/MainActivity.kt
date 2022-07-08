@@ -8,6 +8,9 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.trylaarsdam.assignmentcanvas.ui.theme.AssignmentCanvasTheme
 
 class MainActivity : ComponentActivity() {
@@ -17,7 +20,7 @@ class MainActivity : ComponentActivity() {
             AssignmentCanvasTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    Greeting("Android")
+                    MainNavView()
                 }
             }
         }
@@ -25,8 +28,20 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
+fun MainNavView() {
+    val navController = rememberNavController()
+
+    NavHost(navController = navController, startDestination = "profile") {
+        composable("profile") { Greeting("Profile") }
+        composable("friendslist") { Greeting("Friends") }
+        /*...*/
+    }
+
+}
+
+@Composable
 fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+    Text(text = "$name")
 }
 
 @Preview(showBackground = true)
