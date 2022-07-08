@@ -11,6 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.trylaarsdam.assignmentcanvas.ui.testUI
 import com.trylaarsdam.assignmentcanvas.ui.theme.AssignmentCanvasTheme
 
 class MainActivity : ComponentActivity() {
@@ -31,9 +32,10 @@ class MainActivity : ComponentActivity() {
 fun MainNavView() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = "profile") {
+    NavHost(navController = navController, startDestination = "testUI") {
         composable("profile") { Greeting("Profile") }
         composable("friendslist") { Greeting("Friends") }
+        composable("testUI") { testUI() }
         /*...*/
     }
 
