@@ -6,7 +6,7 @@ import com.github.kittinunf.fuel.core.extensions.authentication
 fun apiRequest(endpoint: String) {
     Fuel.get("https://canvasapi.toddr.org/$endpoint")
         .authentication()
-        .basic(username, password)
+        .basic(apiUsername, apiPassword)
         .response { request, response, result ->
             println(request)
             println(response)
@@ -15,5 +15,4 @@ fun apiRequest(endpoint: String) {
                 println("[response bytes] ${String(bytes)}")
             }
         }
-
 }
