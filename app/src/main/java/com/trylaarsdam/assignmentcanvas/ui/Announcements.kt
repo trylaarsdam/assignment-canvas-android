@@ -63,7 +63,7 @@ fun Announcements(navController: NavController) {
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(5.dp)
-                            .clickable { },
+                            .clickable { navController.navigate("announcement/${announcement.id.toString()}") },
                         elevation = 10.dp
                     ) {
                         Column(modifier = Modifier

@@ -10,9 +10,11 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.trylaarsdam.assignmentcanvas.ui.Announcements
 import com.trylaarsdam.assignmentcanvas.ui.BottomNavigationBar
 import com.trylaarsdam.assignmentcanvas.ui.Courses
@@ -47,6 +49,10 @@ fun MainNavView(navController: NavHostController) {
         composable("announcements") { Announcements(navController) }
         composable("courses") { Courses(navController) }
         composable("testUI") { testUI() }
+        composable("announcement/{id}", arguments = listOf(navArgument("id") {type = NavType.StringType})) {
+            backStackEntry ->
+            backStackEntry.arguments?.getString("id")?.let { Greeting(it) }
+        }
         /*...*/
     }
 }
