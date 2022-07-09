@@ -63,7 +63,9 @@ fun Announcements(navController: NavController) {
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(5.dp)
-                            .clickable { navController.navigate("announcement/${announcement.id.toString()}") },
+                            .clickable {
+                                navController.navigate("announcement/${announcement.course.id}/${announcement.id}")
+                            },
                         elevation = 10.dp
                     ) {
                         Column(modifier = Modifier
@@ -75,7 +77,9 @@ fun Announcements(navController: NavController) {
                             }
                             Text("${announcement.title}", fontWeight = FontWeight.Bold)
                             Divider(modifier = Modifier.padding(vertical = 10.dp))
-                            HtmlText(html = announcement.message, modifier = Modifier.heightIn(0.dp, 95.dp))
+                            HtmlViewer(html = announcement.message, lines = 5, modifier = Modifier.clickable {
+                                navController.navigate("announcement/${announcement.course.id}/${announcement.id}")
+                            })
                             Text(announcement.created_at, fontSize = 14.sp, modifier = Modifier.align(Alignment.End))
                         }
                     }

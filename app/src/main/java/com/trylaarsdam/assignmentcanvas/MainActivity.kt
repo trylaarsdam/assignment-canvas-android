@@ -3,11 +3,14 @@ package com.trylaarsdam.assignmentcanvas
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -15,10 +18,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.trylaarsdam.assignmentcanvas.ui.Announcements
-import com.trylaarsdam.assignmentcanvas.ui.BottomNavigationBar
-import com.trylaarsdam.assignmentcanvas.ui.Courses
-import com.trylaarsdam.assignmentcanvas.ui.testUI
+import com.trylaarsdam.assignmentcanvas.ui.*
 import com.trylaarsdam.assignmentcanvas.ui.theme.AssignmentCanvasTheme
 
 class MainActivity : ComponentActivity() {
@@ -30,13 +30,13 @@ class MainActivity : ComponentActivity() {
             AssignmentCanvasTheme {
                 Scaffold(
                     bottomBar = { BottomNavigationBar(navController) }
-                ) {
-                    Surface(color = MaterialTheme.colors.background) {
-                        MainNavView(navController)
+                ) { innerPadding ->
+                    Box(modifier = Modifier.padding(innerPadding)) {
+                        Surface(color = MaterialTheme.colors.background) {
+                            MainNavView(navController)
+                        }
                     }
                 }
-                // A surface container using the 'background' color from the theme
-
             }
         }
     }
@@ -44,14 +44,12 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainNavView(navController: NavHostController) {
-
     NavHost(navController = navController, startDestination = "testUI") {
         composable("announcements") { Announcements(navController) }
         composable("courses") { Courses(navController) }
         composable("testUI") { testUI() }
-        composable("announcement/{id}", arguments = listOf(navArgument("id") {type = NavType.StringType})) {
-            backStackEntry ->
-            backStackEntry.arguments?.getString("id")?.let { Greeting(it) }
+        composable("announcement/{courseID}/{announcementID}") { backStackEntry ->
+            AnnouncementViewer(navController, backStackEntry.arguments?.getString("announcementID")!!.toInt(), backStackEntry.arguments?.getString("courseID")!!.toInt())
         }
         /*...*/
     }
