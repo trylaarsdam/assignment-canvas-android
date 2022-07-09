@@ -8,36 +8,43 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.google.gson.Gson
 import com.trylaarsdam.assignmentcanvas.api.apiRequest
+import com.trylaarsdam.assignmentcanvas.api.objects.Announcement
 import com.trylaarsdam.assignmentcanvas.api.objects.Course
+import com.trylaarsdam.assignmentcanvas.api.responses.APIAnnouncements
 import com.trylaarsdam.assignmentcanvas.api.responses.APICourses
 import kotlinx.coroutines.launch
 
 @Composable
-fun Courses(navController: NavController) {
+fun Announcements(navController: NavController) {
     val coroutineScope = rememberCoroutineScope()
-    var courses = remember {mutableStateOf(APICourses(listOf<Course>(), "loading"))}
+    var announcements = remember {mutableStateOf(APIAnnouncements(listOf<Announcement>(), "loading"))}
 
     LaunchedEffect(Unit) {
         coroutineScope.launch {
-            courses.value = Gson().fromJson(apiRequest("api/courses/"), APICourses::class.java)
+            announcements.value = Gson().fromJson(apiRequest("api/announcements/"), APIAnnouncements::class.java)
         }
     }
     Column() {
         Text(
-            "Your Courses",
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp).padding(top = 20.dp),
+            "Announcements",
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp)
+                .padding(top = 20.dp),
             fontSize = 30.sp
         )
-        if (courses.value.status == "loading") {
+        if (announcements.value.status == "loading") {
             Column(
                 modifier = Modifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -51,7 +58,7 @@ fun Courses(navController: NavController) {
                     .padding(15.dp)
                     .fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                items(courses.value.data) { course ->
+                items(announcements.value.data) { announcement ->
                     Card(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -59,8 +66,16 @@ fun Courses(navController: NavController) {
                             .clickable { },
                         elevation = 10.dp
                     ) {
-                        Column(modifier = Modifier.fillMaxWidth().padding(10.dp)) {
-                            Text(course.name)
+                        Column(modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(10.dp)) {
+                            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                                Text(announcement.course.name)
+                                Text(announcement.author.display_name)
+                            }
+                            Text("${announcement.title}", fontWeight = FontWeight.Bold)
+                            Divider(modifier = Modifier.padding(vertical = 10.dp))
+                            HtmlText(html = announcement.message, modifier = Modifier.heightIn(0.dp, 95.dp))
                         }
                     }
                 }
