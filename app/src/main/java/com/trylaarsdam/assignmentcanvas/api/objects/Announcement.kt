@@ -6,5 +6,6 @@ data class Announcement (
     val url: String,
     val course: Course,
     val message: String,
-    val author: Author
+    val author: Author,
+    val created_at: String
 )

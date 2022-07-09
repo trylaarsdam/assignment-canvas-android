@@ -76,6 +76,7 @@ fun Announcements(navController: NavController) {
                             Text("${announcement.title}", fontWeight = FontWeight.Bold)
                             Divider(modifier = Modifier.padding(vertical = 10.dp))
                             HtmlText(html = announcement.message, modifier = Modifier.heightIn(0.dp, 95.dp))
+                            Text(announcement.created_at, fontSize = 14.sp, modifier = Modifier.align(Alignment.End))
                         }
                     }
                 }
