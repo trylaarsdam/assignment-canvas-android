@@ -14,6 +14,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.trylaarsdam.assignmentcanvas.ui.BottomNavigationBar
+import com.trylaarsdam.assignmentcanvas.ui.Courses
 import com.trylaarsdam.assignmentcanvas.ui.testUI
 import com.trylaarsdam.assignmentcanvas.ui.theme.AssignmentCanvasTheme
 
@@ -42,7 +43,7 @@ class MainActivity : ComponentActivity() {
 fun MainNavView(navController: NavHostController) {
 
     NavHost(navController = navController, startDestination = "testUI") {
-        composable("feed") { Greeting("feed") }
+        composable("feed") { Courses(navController) }
         composable("courses") { Greeting("courses") }
         composable("testUI") { testUI() }
         /*...*/

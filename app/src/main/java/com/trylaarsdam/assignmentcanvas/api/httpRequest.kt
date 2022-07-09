@@ -1,18 +1,20 @@
 package com.trylaarsdam.assignmentcanvas.api
 
+import android.content.ContentValues.TAG
+import android.provider.SyncStateContract.Helpers.update
+import android.util.Log
 import com.github.kittinunf.fuel.Fuel
+import com.github.kittinunf.fuel.core.awaitResponse
 import com.github.kittinunf.fuel.core.extensions.authentication
+import com.github.kittinunf.fuel.coroutines.awaitStringResponseResult
+import com.github.kittinunf.fuel.httpGet
 
-fun apiRequest(endpoint: String) {
-    Fuel.get("https://canvasapi.toddr.org/$endpoint")
+suspend fun apiRequest(endpoint: String): String {
+    val (request, response, result) = Fuel.get("https://canvasapi.toddr.org/$endpoint")
         .authentication()
         .basic(apiUsername, apiPassword)
-        .response { request, response, result ->
-            println(request)
-            println(response)
-            val (bytes, error) = result
-            if (bytes != null) {
-                println("[response bytes] ${String(bytes)}")
-            }
-        }
+        .awaitStringResponseResult()
+
+    Log.d(TAG, String(response.data))
+    return String(response.data)
 }

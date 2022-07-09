@@ -11,8 +11,8 @@ import com.trylaarsdam.assignmentcanvas.api.apiRequest
 @Composable
 fun testUI() {
     Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-        Button(onClick = { apiRequest("") }) {
-            Text("Call API")
-        }
+//        Button(onClick = { apiRequest("") }) {
+//            Text("Call API")
+//        }
     }
 }
