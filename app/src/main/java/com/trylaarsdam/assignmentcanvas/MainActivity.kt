@@ -43,8 +43,8 @@ class MainActivity : ComponentActivity() {
 fun MainNavView(navController: NavHostController) {
 
     NavHost(navController = navController, startDestination = "testUI") {
-        composable("feed") { Courses(navController) }
-        composable("courses") { Greeting("courses") }
+        composable("feed") { Greeting("feed") }
+        composable("courses") { Courses(navController) }
         composable("testUI") { testUI() }
         /*...*/
     }
