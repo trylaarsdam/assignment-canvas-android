@@ -4,13 +4,16 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.trylaarsdam.assignmentcanvas.ui.BottomNavigationBar
 import com.trylaarsdam.assignmentcanvas.ui.testUI
 import com.trylaarsdam.assignmentcanvas.ui.theme.AssignmentCanvasTheme
 
@@ -18,27 +21,32 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val navController = rememberNavController()
+
             AssignmentCanvasTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-                    MainNavView()
+                Scaffold(
+                    bottomBar = { BottomNavigationBar(navController) }
+                ) {
+                    Surface(color = MaterialTheme.colors.background) {
+                        MainNavView(navController)
+                    }
                 }
+                // A surface container using the 'background' color from the theme
+
             }
         }
     }
 }
 
 @Composable
-fun MainNavView() {
-    val navController = rememberNavController()
+fun MainNavView(navController: NavHostController) {
 
     NavHost(navController = navController, startDestination = "testUI") {
-        composable("profile") { Greeting("Profile") }
-        composable("friendslist") { Greeting("Friends") }
+        composable("feed") { Greeting("feed") }
+        composable("courses") { Greeting("courses") }
         composable("testUI") { testUI() }
         /*...*/
     }
-
 }
 
 @Composable
