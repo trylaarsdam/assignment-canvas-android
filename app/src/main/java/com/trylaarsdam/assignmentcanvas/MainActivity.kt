@@ -10,12 +10,14 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.trylaarsdam.assignmentcanvas.ui.*
@@ -26,10 +28,11 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val navController = rememberNavController()
+            val navBackStackEntry by navController.currentBackStackEntryAsState()
 
             AssignmentCanvasTheme {
                 Scaffold(
-                    bottomBar = { BottomNavigationBar(navController) }
+                    bottomBar = { if(navBackStackEntry?.destination?.route != "login") {BottomNavigationBar(navController)} }
                 ) { innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)) {
                         Surface(color = MaterialTheme.colors.background) {
@@ -44,10 +47,12 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainNavView(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = "testUI") {
+    NavHost(navController = navController, startDestination = "login") {
         composable("announcements") { Announcements(navController) }
         composable("courses") { Courses(navController) }
         composable("testUI") { testUI() }
+        composable("settings") { Settings(navController) }
+        composable("login") { Login(navController) }
         composable("announcement/{courseID}/{announcementID}") { backStackEntry ->
             AnnouncementViewer(navController, backStackEntry.arguments?.getString("announcementID")!!.toInt(), backStackEntry.arguments?.getString("courseID")!!.toInt())
         }

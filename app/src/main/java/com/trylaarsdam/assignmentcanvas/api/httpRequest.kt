@@ -18,3 +18,11 @@ suspend fun apiRequest(endpoint: String): String {
     Log.d(TAG, String(response.data))
     return String(response.data)
 }
+
+suspend fun apiRequestNoAuth(endpoint: String): String {
+    val (request, response, result) = Fuel.get("https://canvasapi.toddr.org/$endpoint")
+        .awaitStringResponseResult()
+
+    Log.d(TAG, String(response.data))
+    return String(response.data)
+}

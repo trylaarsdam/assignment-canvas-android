@@ -13,6 +13,7 @@ fun BottomNavigationBar(navController: NavHostController) {
     val items = listOf(
         NavigationItem.Announcements,
         NavigationItem.Courses,
+        NavigationItem.Settings
     )
     BottomNavigation(
         backgroundColor = MaterialTheme.colors.background,
