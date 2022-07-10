@@ -12,6 +12,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -25,10 +26,11 @@ import kotlinx.coroutines.launch
 fun Courses(navController: NavController) {
     val coroutineScope = rememberCoroutineScope()
     var courses = remember {mutableStateOf(APICourses(listOf<Course>(), "loading"))}
+    val context = LocalContext.current
 
     LaunchedEffect(Unit) {
         coroutineScope.launch {
-            courses.value = Gson().fromJson(apiRequest("api/courses/"), APICourses::class.java)
+            courses.value = Gson().fromJson(apiRequest("api/courses/", context), APICourses::class.java)
         }
     }
     Column() {

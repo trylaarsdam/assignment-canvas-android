@@ -23,6 +23,7 @@ import androidx.navigation.navArgument
 import com.trylaarsdam.assignmentcanvas.ui.*
 import com.trylaarsdam.assignmentcanvas.ui.theme.AssignmentCanvasTheme
 
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -11,6 +11,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -26,10 +27,11 @@ import kotlinx.coroutines.launch
 fun AnnouncementViewer(navController: NavController, announcementID: Int, courseID: Int) {
     val coroutineScope = rememberCoroutineScope()
     var announcement = remember { mutableStateOf(APIAnnouncement(null, "loading")) }
+    val context = LocalContext.current
 
     LaunchedEffect(Unit) {
         coroutineScope.launch {
-            announcement.value = Gson().fromJson(apiRequest("api/announcements/$courseID/$announcementID"), APIAnnouncement::class.java)
+            announcement.value = Gson().fromJson(apiRequest("api/announcements/$courseID/$announcementID", context), APIAnnouncement::class.java)
         }
     }
     Column() {
