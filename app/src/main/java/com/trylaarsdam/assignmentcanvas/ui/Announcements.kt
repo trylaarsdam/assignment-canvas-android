@@ -35,7 +35,7 @@ fun Announcements(navController: NavController) {
 
     LaunchedEffect(Unit) {
         coroutineScope.launch {
-            announcements.value = Gson().fromJson(apiRequest("api/announcements/", context), APIAnnouncements::class.java)
+            announcements.value = Gson().fromJson(apiRequest("api/announcements", context), APIAnnouncements::class.java)
         }
     }
     Column() {

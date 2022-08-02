@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Assignment Canvas</string>
+    <string name="feed_shortcut">Feed</string>
 </resources>

@@ -7,4 +7,5 @@ data class User (
     val apiKey: String,
     val name: String,
     val email: String,
+    val password: String
 )

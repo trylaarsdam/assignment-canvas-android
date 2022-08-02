@@ -14,12 +14,24 @@ import com.github.kittinunf.fuel.httpGet
 suspend fun apiRequest(endpoint: String, context: Context): String {
     val sharedPref = context.getSharedPreferences("com.trylaarsdam.assignmentcanvas.PREFERENCE_FILE_KEY", Context.MODE_PRIVATE)
 
-//    val email = sharedPref.getString("email", "null")
-//    val password = sharedPref.getString("password", "null")
+    val email = sharedPref.getString("email", "null")
+    val password = sharedPref.getString("api_password", "null")
+
+    if (email != null) {
+//        Log.d(TAG, email)
+    } else {
+        Log.d(TAG, "no email")
+    }
+
+    if (password != null) {
+//        Log.d(TAG, password)
+    } else {
+        Log.d(TAG, "no password")
+    }
 
     val (request, response, result) = Fuel.get("https://canvasapi.toddr.org/$endpoint")
         .authentication()
-        .basic(apiUsername, apiPassword)
+        .basic(email!!, password!!)
         .awaitStringResponseResult()
 
     Log.d(TAG, String(response.data))
