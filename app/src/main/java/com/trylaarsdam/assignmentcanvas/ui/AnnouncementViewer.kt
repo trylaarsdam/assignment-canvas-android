@@ -1,5 +1,7 @@
 package com.trylaarsdam.assignmentcanvas.ui
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -79,6 +81,13 @@ fun AnnouncementViewer(navController: NavController, announcementID: Int, course
                             Text(
                                 it.created_at, fontSize = 14.sp, modifier = Modifier.align(
                                     Alignment.End))
+                        }
+                        announcement.value.data?.let { it ->
+                            it.replies?.let { replies ->
+                                replies.forEach { reply ->
+                                    ReplyCard(reply)
+                                }
+                            }
                         }
                     }
                 }

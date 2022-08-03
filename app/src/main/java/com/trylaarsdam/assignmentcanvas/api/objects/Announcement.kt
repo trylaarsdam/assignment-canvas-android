@@ -7,5 +7,6 @@ data class Announcement (
     val course: Course,
     val message: String,
     val author: Author,
-    val created_at: String
+    val created_at: String,
+    val replies: Array<Reply>?
 )
