@@ -44,7 +44,7 @@ fun Login(navController: NavController) {
                 val loginResult = Gson().fromJson(apiRequest("internal/login?email=${email}&password=${password}", context), APILogin::class.java)
                 if (loginResult.status == "success") {
                     Log.d(TAG, "Restoration of login successful")
-                    navController.navigate("announcements")
+                    navController.navigate("feed")
                 } else {
                     loginState.value = "prompt"
                     Log.d(TAG, "Stored login credentials invalid")
@@ -98,7 +98,7 @@ fun Login(navController: NavController) {
                             sharedPref.edit().putString("api_password", loginResult.user!!.password).commit()
                             sharedPref.edit().putString("user", Gson().toJson(loginResult.user!!)).commit()
 
-                            navController.navigate("announcements")
+                            navController.navigate("feed")
                         } else {
                             invalidCredentials.value = true
                             Log.d(TAG, "Stored login credentials invalid")

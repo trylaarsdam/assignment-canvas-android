@@ -94,13 +94,18 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainNavView(navController: NavHostController, intent: Intent) {
     NavHost(navController = navController, startDestination = "login") {
+        composable("feed") { Feed(navController) }
         composable("announcements") { Announcements(navController) }
+        composable("assignments") { Assignments(navController) }
         composable("courses") { Courses(navController) }
         composable("testUI") { testUI() }
         composable("settings") { Settings(navController) }
         composable("login") { Login(navController) }
         composable("announcement/{courseID}/{announcementID}") { backStackEntry ->
             AnnouncementViewer(navController, backStackEntry.arguments?.getString("announcementID")!!.toInt(), backStackEntry.arguments?.getString("courseID")!!.toInt())
+        }
+        composable("assignment/{courseID}/{assignmentID}") { backStackEntry ->
+            AssignmentViewer(navController, backStackEntry.arguments?.getString("assignmentID")!!.toInt(), backStackEntry.arguments?.getString("courseID")!!.toInt())
         }
         /*...*/
     }
@@ -118,6 +123,9 @@ fun MainNavView(navController: NavHostController, intent: Intent) {
             }
             "announcements" -> {
                 navController.navigate("announcements")
+            }
+            "feed" -> {
+                navController.navigate("feed")
             }
             else -> {
                 Log.d(TAG, "Unknown deep link")

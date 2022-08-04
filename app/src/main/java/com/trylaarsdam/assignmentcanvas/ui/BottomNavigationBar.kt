@@ -11,9 +11,10 @@ import com.trylaarsdam.assignmentcanvas.NavigationItem
 @Composable
 fun BottomNavigationBar(navController: NavHostController) {
     val items = listOf(
-        NavigationItem.Announcements,
+//        NavigationItem.Announcements,
+        NavigationItem.Feed,
         NavigationItem.Courses,
-        NavigationItem.Settings
+        NavigationItem.Settings,
     )
     BottomNavigation(
         backgroundColor = MaterialTheme.colors.background,
